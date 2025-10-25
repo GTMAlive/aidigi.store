@@ -8,23 +8,15 @@ const nextConfig = {
       },
     ],
   },
-  // Temporarily skip type checking and linting during build for faster deployment
+  // Skip type checking and linting during build
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Use experimental server actions and skip static generation errors
-  experimental: {
-    serverActions: {
-      bodySizeLimit: '2mb',
-    },
-  },
-  // Skip failing pages during static generation
-  staticPageGenerationTimeout: 1000,
-  // Generate pages on-demand instead of at build time
-  output: 'standalone',
+  // Use Pages Router compatibility for Cloudflare
+  reactStrictMode: false,
 };
 
 export default nextConfig;
