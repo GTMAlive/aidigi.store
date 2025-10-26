@@ -138,9 +138,10 @@ export function ImageUpload({
         </div>
       ) : (
         <button
+          type="button"
           onClick={handleClick}
           disabled={uploading}
-          className={`w-full border-2 border-dashed border-gray-300 hover:border-blue-400 transition-colors flex flex-col items-center justify-center gap-2 text-gray-600 hover:text-gray-900 ${shapeClasses[shape]} ${previewClassName}`}
+          className={`border-2 border-dashed border-gray-300 hover:border-blue-400 transition-colors flex flex-col items-center justify-center gap-2 text-gray-600 hover:text-gray-900 ${shapeClasses[shape]} ${previewClassName}`}
         >
           {uploading ? (
             <Loader2 className="h-8 w-8 animate-spin text-blue-600" />

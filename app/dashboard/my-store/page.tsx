@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { StoreThemeSelector } from "@/components/store-theme-selector";
 import { BiolinkLinkManager } from "@/components/biolink-link-manager";
-import { ImageUpload } from "@/components/ui/image-upload";
+import { SimpleImageUpload } from "@/components/ui/simple-image-upload";
 import { 
   ShoppingBag,
   Link as LinkIcon,
@@ -786,20 +786,17 @@ export default function MyStorePage() {
                     <div className="p-4 bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-xl border border-gray-200/60">
                       <label className="text-sm font-semibold text-gray-900 block mb-2">Profile Photo</label>
                       <div className="flex items-start gap-4">
-                        <ImageUpload
+                        <SimpleImageUpload
                           value={avatarUrl}
                           onChange={setAvatarUrl}
-                          folder="avatars"
-                          shape="rounded"
                           className="w-24 h-24 flex-shrink-0"
-                          previewClassName="w-24 h-24"
                         />
                         <div className="flex-1 pt-2">
                           <p className="text-xs text-gray-600 mb-2">
                             Upload a square image (recommended: 400x400px)
                           </p>
                           <p className="text-xs text-gray-500">
-                            Click the box to upload. Images are stored securely in Cloudflare R2.
+                            Click the box to upload your profile photo.
                           </p>
                         </div>
                       </div>
