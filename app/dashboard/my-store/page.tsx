@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { StoreThemeSelector } from "@/components/store-theme-selector";
 import { BiolinkLinkManager } from "@/components/biolink-link-manager";
+import { ImageUpload } from "@/components/ui/image-upload";
 import { 
   ShoppingBag,
   Link as LinkIcon,
@@ -55,6 +56,7 @@ export default function MyStorePage() {
   const [builderView, setBuilderView] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
   const [saved, setSaved] = useState(false);
   const [bioText, setBioText] = useState("AI prompt engineer & content creator. Building amazing things! ✨");
+  const [avatarUrl, setAvatarUrl] = useState("");
   
   const storeUrl = typeof window !== 'undefined' ? `${window.location.origin}/${username}` : `/${username}`;
   const bioCharCount = bioText.length;
@@ -781,22 +783,25 @@ export default function MyStorePage() {
                     </div>
 
                     {/* Avatar Upload */}
-                    <div className="flex items-start gap-4 p-4 bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-xl border border-gray-200/60">
-                      <div className="relative group">
-                        <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-2xl">
-                          JD
+                    <div className="p-4 bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-xl border border-gray-200/60">
+                      <label className="text-sm font-semibold text-gray-900 block mb-2">Profile Photo</label>
+                      <div className="flex items-start gap-4">
+                        <ImageUpload
+                          value={avatarUrl}
+                          onChange={setAvatarUrl}
+                          folder="avatars"
+                          shape="rounded"
+                          className="w-24 h-24 flex-shrink-0"
+                          previewClassName="w-24 h-24"
+                        />
+                        <div className="flex-1 pt-2">
+                          <p className="text-xs text-gray-600 mb-2">
+                            Upload a square image (recommended: 400x400px)
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            Click the box to upload. Images are stored securely in Cloudflare R2.
+                          </p>
                         </div>
-                        <button className="absolute inset-0 bg-black/50 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                          <Plus className="h-6 w-6 text-white" />
-                        </button>
-                      </div>
-                      <div className="flex-1">
-                        <label className="text-sm font-semibold text-gray-900 block mb-1">Profile Photo</label>
-                        <p className="text-xs text-gray-600 mb-2">Upload a square image (recommended: 400x400px)</p>
-                        <Button size="sm" variant="outline" className="text-xs">
-                          <ImageIcon className="h-3 w-3 mr-1.5" />
-                          Choose Image
-                        </Button>
                       </div>
                     </div>
 
@@ -944,9 +949,15 @@ export default function MyStorePage() {
                           <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl p-6 animate-in fade-in duration-500">
                             {/* Profile Section */}
                             <div className="text-center mb-6">
-                              <div className="h-24 w-24 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 shadow-lg ring-4 ring-white/50">
-                                JD
-                              </div>
+                              {avatarUrl ? (
+                                <div className="h-24 w-24 rounded-2xl mx-auto mb-4 shadow-lg ring-4 ring-white/50 overflow-hidden">
+                                  <img src={avatarUrl} alt="Profile" className="w-full h-full object-cover" />
+                                </div>
+                              ) : (
+                                <div className="h-24 w-24 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 shadow-lg ring-4 ring-white/50">
+                                  JD
+                                </div>
+                              )}
                               <h2 className="text-xl font-bold text-gray-900 mb-1">
                                 John Doe
                               </h2>
@@ -1042,9 +1053,15 @@ export default function MyStorePage() {
                           <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-12 w-full max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
                             {/* Profile Section */}
                             <div className="text-center mb-8">
-                              <div className="h-32 w-32 rounded-3xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-4xl mx-auto mb-6 shadow-2xl ring-8 ring-white/50">
-                                JD
-                              </div>
+                              {avatarUrl ? (
+                                <div className="h-32 w-32 rounded-3xl mx-auto mb-6 shadow-2xl ring-8 ring-white/50 overflow-hidden">
+                                  <img src={avatarUrl} alt="Profile" className="w-full h-full object-cover" />
+                                </div>
+                              ) : (
+                                <div className="h-32 w-32 rounded-3xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-4xl mx-auto mb-6 shadow-2xl ring-8 ring-white/50">
+                                  JD
+                                </div>
+                              )}
                               <h2 className="text-3xl font-bold text-gray-900 mb-2">
                                 John Doe
                               </h2>
