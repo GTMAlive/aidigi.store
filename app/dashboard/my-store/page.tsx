@@ -53,8 +53,12 @@ export default function MyStorePage() {
   const [showLeftPanel, setShowLeftPanel] = useState(true);
   const [showRightPanel, setShowRightPanel] = useState(false);
   const [builderView, setBuilderView] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
+  const [saved, setSaved] = useState(false);
+  const [bioText, setBioText] = useState("AI prompt engineer & content creator. Building amazing things! ✨");
   
   const storeUrl = typeof window !== 'undefined' ? `${window.location.origin}/${username}` : `/${username}`;
+  const bioCharCount = bioText.length;
+  const maxBioChars = 150;
 
   const handleUsernameCheck = async () => {
     setIsCheckingUsername(true);
@@ -97,6 +101,11 @@ export default function MyStorePage() {
     setCustomComponents(customComponents.map(comp => 
       comp.id === id ? { ...comp, content: { ...comp.content, ...newContent } } : comp
     ));
+  };
+
+  const handleSave = () => {
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
   };
 
   // Mode Selection Screen
@@ -595,16 +604,6 @@ export default function MyStorePage() {
 
   // BIOLINK MODE PAGE - PREMIUM REDESIGN
   if (displayMode === 'biolink') {
-    const [saved, setSaved] = useState(false);
-    const [bioText, setBioText] = useState("AI prompt engineer & content creator. Building amazing things! ✨");
-    const bioCharCount = bioText.length;
-    const maxBioChars = 150;
-
-    const handleSave = () => {
-      setSaved(true);
-      setTimeout(() => setSaved(false), 2000);
-    };
-
     return (
       <div className="h-screen flex flex-col overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30">
         {/* Floating Top Toolbar */}
