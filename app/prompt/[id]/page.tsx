@@ -14,6 +14,8 @@ import {
   User
 } from "lucide-react";
 
+export const runtime = 'edge';
+
 export async function generateMetadata({ params }: { params: { id: string } }) {
   const prompt = await mockDB.getPromptById(params.id);
   

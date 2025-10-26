@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label";
 import { formatPrice } from "@/lib/utils";
 import { Shield, Lock, CreditCard } from "lucide-react";
 
+export const runtime = 'edge';
+
 // Mock prompt data
 const mockPrompt = {
   id: "p1",
