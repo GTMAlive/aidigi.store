@@ -96,11 +96,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-
-// Configure maximum file size for API route
-export const config = {
-  api: {
-    bodyParser: false,
-    responseLimit: '10mb',
-  },
-};
