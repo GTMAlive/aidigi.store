@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
+
+export const runtime = 'edge';
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,29 +28,36 @@ export async function POST(request: NextRequest) {
       promptPrice = prompt.price;
     }
 
-    const Razorpay = require("razorpay");
+    // Create Razorpay order via direct API call
+    const auth = btoa(`${process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`);
     
-    const razorpay = new Razorpay({
-      key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    const orderResponse = await fetch('https://api.razorpay.com/v1/orders', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${auth}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        amount: amount * 100, // amount in paise
+        currency: 'INR',
+        receipt: `order_${Date.now()}`,
+        notes: {
+          promptId,
+          buyerEmail,
+          buyerName,
+        },
+      }),
     });
 
-    const options = {
-      amount: amount * 100, // amount in paise
-      currency: "INR",
-      receipt: `order_${Date.now()}`,
-      notes: {
-        promptId,
-        buyerEmail,
-        buyerName,
-      },
-    };
+    if (!orderResponse.ok) {
+      throw new Error(`Razorpay API error: ${orderResponse.statusText}`);
+    }
 
-    const order = await razorpay.orders.create(options);
+    const order = await orderResponse.json();
 
     // Create purchase record in database
     if (db) {
-      const purchaseId = crypto.randomUUID();
+      const purchaseId = crypto.randomUUID(); // Web Crypto API (Edge compatible)
       const platformFeePercent = 15; // 15% platform fee
       const platformFee = (promptPrice * platformFeePercent) / 100;
       const creatorAmount = promptPrice - platformFee;

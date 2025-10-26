@@ -1,6 +1,4 @@
-// Multi-provider email service with Resend + Brevo fallback
-import { Resend } from 'resend';
-import * as brevo from '@getbrevo/brevo';
+// Edge Runtime compatible email service with Resend + Brevo fallback
 
 interface EmailParams {
   to: string;
@@ -11,55 +9,41 @@ interface EmailParams {
 
 type EmailProvider = 'resend' | 'brevo';
 
-// Lazy initialization of email clients
-let resend: Resend | null = null;
-let brevoClient: brevo.TransactionalEmailsApi | null = null;
-
-function getResendClient(): Resend | null {
-  if (!process.env.RESEND_API_KEY) return null;
-  if (!resend) {
-    resend = new Resend(process.env.RESEND_API_KEY);
-  }
-  return resend;
-}
-
-function getBrevoClient(): brevo.TransactionalEmailsApi | null {
-  if (!process.env.BREVO_API_KEY) return null;
-  if (!brevoClient) {
-    brevoClient = new brevo.TransactionalEmailsApi();
-    brevoClient.setApiKey(
-      brevo.TransactionalEmailsApiApiKeys.apiKey,
-      process.env.BREVO_API_KEY
-    );
-  }
-  return brevoClient;
-}
 
 /**
- * Send email using Resend (Primary)
+ * Send email using Resend (Primary) - Edge Runtime compatible
  */
 async function sendWithResend({ to, subject, html, from }: EmailParams): Promise<boolean> {
   try {
-    const client = getResendClient();
-    if (!client) {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
       console.log('Resend API key not configured');
       return false;
     }
 
     const fromEmail = from || process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
     
-    const { data, error } = await client.emails.send({
-      from: fromEmail,
-      to: [to],
-      subject: subject,
-      html: html,
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [to],
+        subject: subject,
+        html: html,
+      }),
     });
 
-    if (error) {
+    if (!response.ok) {
+      const error = await response.text();
       console.error('Resend error:', error);
       return false;
     }
 
+    const data = await response.json();
     console.log('✅ Email sent via Resend:', data?.id);
     return true;
   } catch (error: any) {
@@ -69,12 +53,12 @@ async function sendWithResend({ to, subject, html, from }: EmailParams): Promise
 }
 
 /**
- * Send email using Brevo (Fallback)
+ * Send email using Brevo (Fallback) - Edge Runtime compatible
  */
 async function sendWithBrevo({ to, subject, html, from }: EmailParams): Promise<boolean> {
   try {
-    const client = getBrevoClient();
-    if (!client) {
+    const apiKey = process.env.BREVO_API_KEY;
+    if (!apiKey) {
       console.log('Brevo API key not configured');
       return false;
     }
@@ -84,14 +68,28 @@ async function sendWithBrevo({ to, subject, html, from }: EmailParams): Promise<
       ? [fromEmail.split('<')[0].trim(), fromEmail.split('<')[1].replace('>', '').trim()]
       : ['PromptMarket', fromEmail];
 
-    const sendSmtpEmail = new brevo.SendSmtpEmail();
-    sendSmtpEmail.sender = { name: fromName, email: fromAddr };
-    sendSmtpEmail.to = [{ email: to }];
-    sendSmtpEmail.subject = subject;
-    sendSmtpEmail.htmlContent = html;
+    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'api-key': apiKey,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        sender: { name: fromName, email: fromAddr },
+        to: [{ email: to }],
+        subject: subject,
+        htmlContent: html,
+      }),
+    });
 
-    const response = await client.sendTransacEmail(sendSmtpEmail);
-    console.log('✅ Email sent via Brevo:', response.body?.messageId);
+    if (!response.ok) {
+      const error = await response.text();
+      console.error('Brevo error:', error);
+      return false;
+    }
+
+    const data = await response.json();
+    console.log('✅ Email sent via Brevo:', data?.messageId);
     return true;
   } catch (error: any) {
     console.error('Brevo failed:', error.message);

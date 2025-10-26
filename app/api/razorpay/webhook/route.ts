@@ -1,17 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
 import { sendEmail, generateDownloadEmail } from "@/lib/email";
+
+export const runtime = 'edge';
+
+// Helper function for HMAC-SHA256 using Web Crypto API
+async function hmacSha256(secret: string, message: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const keyData = encoder.encode(secret);
+  const messageData = encoder.encode(message);
+  
+  const key = await crypto.subtle.importKey(
+    'raw',
+    keyData,
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  
+  const signature = await crypto.subtle.sign('HMAC', key, messageData);
+  const hashArray = Array.from(new Uint8Array(signature));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Helper function to generate random token
+function generateRandomToken(): string {
+  const array = new Uint8Array(32);
+  crypto.getRandomValues(array);
+  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+}
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.text();
     const signature = request.headers.get("x-razorpay-signature");
 
-    // Verify webhook signature
-    const expectedSignature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_WEBHOOK_SECRET || "")
-      .update(body)
-      .digest("hex");
+    // Verify webhook signature using Web Crypto API
+    const expectedSignature = await hmacSha256(
+      process.env.RAZORPAY_WEBHOOK_SECRET || "",
+      body
+    );
 
     if (signature !== expectedSignature) {
       return NextResponse.json(
@@ -32,8 +59,8 @@ export async function POST(request: NextRequest) {
         console.log("Payment captured/authorized:", payment.id);
         
         try {
-          // Generate a secure download token
-          const downloadToken = crypto.randomBytes(32).toString('hex');
+          // Generate a secure download token using Web Crypto API
+          const downloadToken = generateRandomToken();
           
           // Get the database binding (Cloudflare D1)
           // @ts-ignore
