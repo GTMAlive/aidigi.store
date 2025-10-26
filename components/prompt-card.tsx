@@ -58,7 +58,7 @@ export function PromptCard({ prompt }: PromptCardProps) {
         </CardContent>
         <CardFooter className="mt-auto border-t border-gray-100 bg-gradient-to-br from-purple-50/50 to-pink-50/50 p-6">
           <div className="flex w-full items-center justify-between">
-            <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
               {formatPrice(prompt.price)}
             </span>
             <Link href={`/prompt/${prompt.id}`}>
