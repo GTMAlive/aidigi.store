@@ -1,17 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { AuthModal } from "@/components/auth-modal";
 import { 
   Sparkles, 
   User, 
   LayoutDashboard,
   Zap,
-  TrendingUp
+  TrendingUp,
+  LogIn
 } from "lucide-react";
 
 export function Header() {
+  const [showAuthModal, setShowAuthModal] = useState(false);
   return (
     <header className="sticky top-0 z-50 w-full border-b border-purple-100/50 bg-white/95 backdrop-blur-xl shadow-sm">
       <div className="container mx-auto flex h-20 items-center justify-between px-6">
@@ -62,15 +66,13 @@ export function Header() {
         {/* CTA Buttons */}
         <div className="flex items-center gap-3">
           <Button 
-            variant="ghost" 
+            variant="outline" 
             size="lg" 
-            className="hidden md:flex items-center gap-2 hover:bg-purple-50 rounded-xl" 
-            asChild
+            className="hidden sm:flex items-center gap-2 rounded-xl border-purple-200 hover:bg-purple-50 hover:border-purple-300" 
+            onClick={() => setShowAuthModal(true)}
           >
-            <Link href="/dashboard">
-              <LayoutDashboard className="h-4 w-4" />
-              Dashboard
-            </Link>
+            <LogIn className="h-4 w-4" />
+            Sign In
           </Button>
           <Button 
             size="lg" 
@@ -84,6 +86,9 @@ export function Header() {
           </Button>
         </div>
       </div>
+      
+      {/* Auth Modal */}
+      <AuthModal open={showAuthModal} onOpenChange={setShowAuthModal} />
     </header>
   );
 }
