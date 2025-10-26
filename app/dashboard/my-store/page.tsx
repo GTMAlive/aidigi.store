@@ -14,7 +14,6 @@ import {
   ShoppingBag,
   Link as LinkIcon,
   Check,
-  Zap,
   Info,
   Store,
   Eye,
@@ -28,7 +27,6 @@ import {
   MapPin,
   Image as ImageIcon,
   Save,
-  ArrowLeft,
   Plus,
   Layers,
   Settings,
@@ -40,7 +38,7 @@ import {
   Trash2
 } from "lucide-react";
 
-type DisplayMode = 'storefront' | 'biolink' | 'custom' | null;
+type DisplayMode = 'storefront' | 'biolink' | null;
 
 export default function MyStorePage() {
   const [displayMode, setDisplayMode] = useState<DisplayMode>(null);
@@ -114,7 +112,7 @@ export default function MyStorePage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {/* Storefront Option */}
           <button
             onClick={() => setDisplayMode('storefront')}
@@ -185,40 +183,6 @@ export default function MyStorePage() {
             </div>
           </button>
 
-          {/* Custom/Scratch Option */}
-          <button
-            onClick={() => setDisplayMode('custom')}
-            className="group p-6 bg-white border-2 border-gray-200 rounded-2xl hover:border-orange-400 transition-all hover:shadow-xl text-left"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-500 p-3 group-hover:scale-110 transition-transform">
-                <Sparkles className="h-full w-full text-white" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors">
-                  ✨ Custom
-                </h3>
-                <Badge className="mt-1 bg-orange-100 text-orange-700 text-xs">Advanced</Badge>
-              </div>
-            </div>
-            <p className="text-sm text-gray-600 mb-3">
-              Build from scratch. Full creative control with drag-and-drop builder - perfect for unique brands.
-            </p>
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-2 text-xs text-gray-500">
-                <Check className="h-3 w-3 text-green-600" />
-                Complete customization
-              </div>
-              <div className="flex items-center gap-2 text-xs text-gray-500">
-                <Check className="h-3 w-3 text-green-600" />
-                Drag & drop builder
-              </div>
-              <div className="flex items-center gap-2 text-xs text-gray-500">
-                <Check className="h-3 w-3 text-green-600" />
-                Unlimited flexibility
-              </div>
-            </div>
-          </button>
         </div>
 
         <Card className="border-0 bg-gradient-to-br from-blue-50 to-cyan-50 max-w-2xl mx-auto">
@@ -232,7 +196,7 @@ export default function MyStorePage() {
                   Not sure which to choose?
                 </h3>
                 <p className="text-sm text-gray-700">
-                  <strong>Storefront</strong> if you&apos;re selling products. <strong>Biolink</strong> if you need a link-in-bio page for social media. <strong>Custom</strong> if you want complete creative control. You can switch anytime!
+                  <strong>Storefront</strong> if you&apos;re selling products. <strong>Biolink</strong> if you need a link-in-bio page for social media. You can switch anytime!
                 </p>
               </div>
             </div>
@@ -900,62 +864,6 @@ export default function MyStorePage() {
     );
   }
 
-  // CUSTOM MODE PAGE - Coming Soon
-  if (displayMode === 'custom') {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 p-8">
-        <div className="max-w-4xl mx-auto">
-          <Button 
-            variant="ghost" 
-            onClick={() => setDisplayMode(null)}
-            className="mb-8"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Page Styles
-          </Button>
-          
-          <div className="bg-white rounded-3xl shadow-xl p-12 text-center">
-            <div className="h-24 w-24 rounded-full bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center mx-auto mb-6">
-              <Sparkles className="h-12 w-12 text-white" />
-            </div>
-            
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Custom Builder
-            </h1>
-            <p className="text-xl text-gray-600 mb-8">
-              Build your page from scratch with full creative control
-            </p>
-            
-            <div className="bg-gradient-to-r from-orange-100 to-amber-100 rounded-2xl p-8 mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Coming Soon! 🚀</h2>
-              <p className="text-gray-700">
-                We're building an amazing drag-and-drop page builder with advanced customization options.
-                Stay tuned for updates!
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-              <div className="p-6 bg-gray-50 rounded-xl">
-                <Zap className="h-8 w-8 text-orange-600 mb-3" />
-                <h3 className="font-bold text-gray-900 mb-2">Drag & Drop</h3>
-                <p className="text-sm text-gray-600">Intuitive visual editor</p>
-              </div>
-              <div className="p-6 bg-gray-50 rounded-xl">
-                <Layout className="h-8 w-8 text-orange-600 mb-3" />
-                <h3 className="font-bold text-gray-900 mb-2">Flexible Layouts</h3>
-                <p className="text-sm text-gray-600">Complete design freedom</p>
-              </div>
-              <div className="p-6 bg-gray-50 rounded-xl">
-                <Settings className="h-8 w-8 text-orange-600 mb-3" />
-                <h3 className="font-bold text-gray-900 mb-2">Advanced Controls</h3>
-                <p className="text-sm text-gray-600">Professional styling options</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   // Should never reach here
   return null;
