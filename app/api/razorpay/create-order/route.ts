@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 
-export const runtime = 'edge';
-
 export async function POST(request: NextRequest) {
   try {
     const { promptId, amount, buyerEmail, buyerName } = await request.json();
