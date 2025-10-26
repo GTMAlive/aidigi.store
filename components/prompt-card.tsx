@@ -13,14 +13,13 @@ export function PromptCard({ prompt }: PromptCardProps) {
   const tags = prompt.tags ? JSON.parse(prompt.tags) : [];
 
   return (
-    <Link href={`/prompt/${prompt.id}`} className="block h-full">
-      <Card className="group flex h-full flex-col overflow-hidden rounded-3xl border-0 bg-white shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
+      <Card className="group flex h-full flex-col overflow-hidden rounded-3xl border-0 bg-white shadow-sm transition-shadow hover:shadow-xl">
         <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100">
           {prompt.thumbnail_url ? (
             <img
               src={prompt.thumbnail_url}
               alt={prompt.title}
-              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+              className="h-full w-full object-cover"
             />
           ) : (
             <div className="flex h-full items-center justify-center">
@@ -38,7 +37,7 @@ export function PromptCard({ prompt }: PromptCardProps) {
           </div>
         </div>
         <CardContent className="flex-1 p-6">
-          <h3 className="mb-3 line-clamp-2 text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
+          <h3 className="mb-3 line-clamp-2 text-xl font-bold text-gray-900">
             {prompt.title}
           </h3>
           <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-gray-600">
@@ -60,12 +59,13 @@ export function PromptCard({ prompt }: PromptCardProps) {
             <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
               {formatPrice(prompt.price)}
             </span>
-            <div className="rounded-full bg-purple-600 px-4 py-2 text-sm font-semibold text-white group-hover:bg-purple-700 transition-colors">
-              Buy Now
-            </div>
+            <Link href={`/prompt/${prompt.id}`}>
+              <div className="rounded-full bg-purple-600 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-700 transition-colors cursor-pointer">
+                Buy Now
+              </div>
+            </Link>
           </div>
         </CardFooter>
       </Card>
-    </Link>
   );
 }
