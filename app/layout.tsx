@@ -7,11 +7,11 @@ import { Footer } from "@/components/footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PromptMarket | The Future of AI Prompt Commerce",
+  title: "AiDigi.store | The Future of AI Prompt Commerce",
   description: "Premium AI prompt marketplace built for creators. Launch your AI product store, sell prompt packs, and scale your business with 0% fees on your first ₹10,000.",
   keywords: ["AI prompts", "ChatGPT", "Midjourney", "prompt marketplace", "AI commerce", "creator economy", "AI products"],
   openGraph: {
-    title: "PromptMarket | Premium AI Prompt Marketplace",
+    title: "AiDigi.store | Premium AI Prompt Marketplace",
     description: "The next-generation platform for AI prompt creators. Beautiful storefronts, instant delivery, and the lowest fees in the industry.",
     type: "website",
     images: [
@@ -19,13 +19,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "PromptMarket - Premium AI Marketplace",
+        alt: "AiDigi.store - Premium AI Marketplace",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PromptMarket | Build Your AI Empire",
+    title: "AiDigi.store | Build Your AI Empire",
     description: "Launch your AI prompt store in minutes. Beautiful themes, biolinks, and the best fees for creators.",
   },
 };

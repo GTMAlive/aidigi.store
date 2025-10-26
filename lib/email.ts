@@ -66,7 +66,7 @@ async function sendWithBrevo({ to, subject, html, from }: EmailParams): Promise<
     const fromEmail = from || process.env.BREVO_FROM_EMAIL || 'noreply@yourdomain.com';
     const [fromName, fromAddr] = fromEmail.includes('<') 
       ? [fromEmail.split('<')[0].trim(), fromEmail.split('<')[1].replace('>', '').trim()]
-      : ['PromptMarket', fromEmail];
+      : ['AiDigi.store', fromEmail];
 
     const response = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
@@ -165,7 +165,7 @@ export function generateDownloadEmail(
       <body>
         <div class="container">
           <div class="header">
-            <h1>PromptMarket</h1>
+            <h1>AiDigi.store</h1>
           </div>
           <div class="content">
             <h2>Thank you for your purchase!</h2>
@@ -176,10 +176,10 @@ export function generateDownloadEmail(
               <a href="${downloadLink}" class="button">Download Your Prompts</a>
             </p>
             <p>This link will remain active for 30 days. You can download your prompts multiple times during this period.</p>
-            <p>If you have any questions, please contact us at support@promptmarket.com</p>
+            <p>If you have any questions, please contact us at support@aidigi.store</p>
           </div>
           <div class="footer">
-            <p>© ${new Date().getFullYear()} PromptMarket. All rights reserved.</p>
+            <p>© ${new Date().getFullYear()} AiDigi.store. All rights reserved.</p>
             <p>Terms & Conditions | Privacy Policy | Refund Policy</p>
           </div>
         </div>
@@ -210,7 +210,7 @@ export function generatePayoutNotificationEmail(
       <body>
         <div class="container">
           <div class="header">
-            <h1>PromptMarket</h1>
+            <h1>AiDigi.store</h1>
           </div>
           <div class="content">
             <h2>Weekly Payout Processed</h2>
@@ -222,7 +222,7 @@ export function generatePayoutNotificationEmail(
             <p>Keep creating amazing prompts!</p>
           </div>
           <div class="footer">
-            <p>© ${new Date().getFullYear()} PromptMarket. All rights reserved.</p>
+            <p>© ${new Date().getFullYear()} AiDigi.store. All rights reserved.</p>
           </div>
         </div>
       </body>

@@ -16,7 +16,7 @@ export function Footer() {
             </div>
             <div className="flex flex-col items-start">
               <span className="text-2xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-clip-text text-transparent tracking-tight">
-                PromptMarket
+                AiDigi.store
               </span>
               <span className="text-[10px] font-semibold text-purple-600/60 tracking-wider uppercase">
                 AI Commerce Platform
@@ -49,7 +49,7 @@ export function Footer() {
             <Github className="h-5 w-5" />
           </Link>
           <Link 
-            href="mailto:hello@promptmarket.com" 
+            href="mailto:hello@aidigi.store" 
             className="flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 text-purple-600 hover:bg-purple-200 transition-colors"
           >
             <Mail className="h-5 w-5" />
@@ -78,7 +78,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="text-center">
           <p className="text-sm text-gray-500">
-            © {new Date().getFullYear()} PromptMarket. Empowering the next generation of AI creators.
+            © {new Date().getFullYear()} AiDigi.store. Empowering the next generation of AI creators.
           </p>
           <p className="mt-2 text-xs text-gray-400">
             Built with ⚡ for creators, by creators.

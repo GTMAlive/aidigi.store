@@ -25,7 +25,7 @@ export function Header() {
           </div>
           <div className="flex flex-col">
             <span className="text-2xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-clip-text text-transparent tracking-tight">
-              PromptMarket
+              AiDigi.store
             </span>
             <span className="text-[10px] font-semibold text-purple-600/60 tracking-wider uppercase">
               AI Commerce Platform
