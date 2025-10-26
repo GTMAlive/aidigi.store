@@ -37,9 +37,11 @@ export function PromptCard({ prompt }: PromptCardProps) {
           </div>
         </div>
         <CardContent className="flex-1 p-6">
-          <h3 className="mb-3 line-clamp-2 text-xl font-bold text-gray-900">
-            {prompt.title}
-          </h3>
+          <Link href={`/prompt/${prompt.id}`}>
+            <h3 className="mb-3 line-clamp-2 text-xl font-bold text-gray-900 hover:text-purple-600 transition-colors cursor-pointer">
+              {prompt.title}
+            </h3>
+          </Link>
           <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-gray-600">
             {prompt.short_description || prompt.description}
           </p>
