@@ -186,7 +186,7 @@ export default function MyStorePage() {
 
           {/* Custom/Scratch Option */}
           <button
-            onClick={() => window.location.href = '/dashboard/builder'}
+            onClick={() => setDisplayMode('custom')}
             className="group p-6 bg-white border-2 border-gray-200 rounded-2xl hover:border-orange-400 transition-all hover:shadow-xl text-left"
           >
             <div className="flex items-center gap-3 mb-3">

@@ -10,13 +10,11 @@ import {
   Settings,
   Package,
   Store,
-  Link as LinkIcon,
-  Paintbrush
+  Link as LinkIcon
 } from "lucide-react";
 
 const navigation = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Custom Builder", href: "/dashboard/builder", icon: Paintbrush },
   { name: "My Store", href: "/dashboard/my-store", icon: Store },
   { name: "My Products", href: "/dashboard/prompts", icon: Package },
   { name: "Upload", href: "/dashboard/upload", icon: Upload },
