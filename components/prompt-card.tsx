@@ -13,8 +13,8 @@ export function PromptCard({ prompt }: PromptCardProps) {
   const tags = prompt.tags ? JSON.parse(prompt.tags) : [];
 
   return (
-    <Link href={`/prompt/${prompt.id}`}>
-      <Card className="group overflow-hidden rounded-3xl border-0 bg-white shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
+    <Link href={`/prompt/${prompt.id}`} className="block h-full">
+      <Card className="group flex h-full flex-col overflow-hidden rounded-3xl border-0 bg-white shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
         <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100">
           {prompt.thumbnail_url ? (
             <img
@@ -37,7 +37,7 @@ export function PromptCard({ prompt }: PromptCardProps) {
             ))}
           </div>
         </div>
-        <CardContent className="p-6">
+        <CardContent className="flex-1 p-6">
           <h3 className="mb-3 line-clamp-2 text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
             {prompt.title}
           </h3>
@@ -55,7 +55,7 @@ export function PromptCard({ prompt }: PromptCardProps) {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="border-t border-gray-100 bg-gradient-to-br from-purple-50/50 to-pink-50/50 p-6">
+        <CardFooter className="mt-auto border-t border-gray-100 bg-gradient-to-br from-purple-50/50 to-pink-50/50 p-6">
           <div className="flex w-full items-center justify-between">
             <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
               {formatPrice(prompt.price)}
