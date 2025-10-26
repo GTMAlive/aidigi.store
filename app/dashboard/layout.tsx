@@ -10,14 +10,12 @@ import {
   Settings,
   Package,
   Store,
-  Link as LinkIcon,
-  Sparkles
+  Link as LinkIcon
 } from "lucide-react";
 
 const navigation = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { name: "My Store", href: "/dashboard/my-store", icon: Store },
-  { name: "Advanced Builder", href: "/dashboard/builder-advanced", icon: Sparkles },
   { name: "My Products", href: "/dashboard/prompts", icon: Package },
   { name: "Upload", href: "/dashboard/upload", icon: Upload },
   { name: "Sales", href: "/dashboard/sales", icon: Wallet },

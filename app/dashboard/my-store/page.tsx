@@ -10,12 +10,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { StoreThemeSelector } from "@/components/store-theme-selector";
 import { BiolinkLinkManager } from "@/components/biolink-link-manager";
-import { AdvancedToolbar } from "@/components/builder/advanced-toolbar";
-import { LeftSidebar } from "@/components/builder/left-sidebar";
-import { Canvas } from "@/components/builder/canvas";
-import { RightSidebar } from "@/components/builder/right-sidebar";
-import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
-import { useBuilderStore } from "@/lib/builder/store";
 import { 
   ShoppingBag,
   Link as LinkIcon,
@@ -906,24 +900,58 @@ export default function MyStorePage() {
     );
   }
 
-  // CUSTOM MODE PAGE - ADVANCED BUILDER  
+  // CUSTOM MODE PAGE - Coming Soon
   if (displayMode === 'custom') {
-    // Use the advanced builder components directly
     return (
-      <div className="h-screen flex flex-col overflow-hidden bg-gray-900 fixed inset-0 z-50">
-        <AdvancedToolbar />
-        <div className="flex-1 flex overflow-hidden">
-          <LeftSidebar />
-          <Canvas />
-          <RightSidebar />
-        </div>
-        <div className="h-10 bg-gray-900 border-t border-gray-800 flex items-center justify-between px-4 text-xs text-gray-400">
-          <div className="flex items-center gap-4">
-            <button onClick={() => setDisplayMode(null)} className="hover:text-white">
-              ← Back to Page Styles
-            </button>
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 p-8">
+        <div className="max-w-4xl mx-auto">
+          <Button 
+            variant="ghost" 
+            onClick={() => setDisplayMode(null)}
+            className="mb-8"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Page Styles
+          </Button>
+          
+          <div className="bg-white rounded-3xl shadow-xl p-12 text-center">
+            <div className="h-24 w-24 rounded-full bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center mx-auto mb-6">
+              <Sparkles className="h-12 w-12 text-white" />
+            </div>
+            
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              Custom Builder
+            </h1>
+            <p className="text-xl text-gray-600 mb-8">
+              Build your page from scratch with full creative control
+            </p>
+            
+            <div className="bg-gradient-to-r from-orange-100 to-amber-100 rounded-2xl p-8 mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Coming Soon! 🚀</h2>
+              <p className="text-gray-700">
+                We're building an amazing drag-and-drop page builder with advanced customization options.
+                Stay tuned for updates!
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+              <div className="p-6 bg-gray-50 rounded-xl">
+                <Zap className="h-8 w-8 text-orange-600 mb-3" />
+                <h3 className="font-bold text-gray-900 mb-2">Drag & Drop</h3>
+                <p className="text-sm text-gray-600">Intuitive visual editor</p>
+              </div>
+              <div className="p-6 bg-gray-50 rounded-xl">
+                <Layout className="h-8 w-8 text-orange-600 mb-3" />
+                <h3 className="font-bold text-gray-900 mb-2">Flexible Layouts</h3>
+                <p className="text-sm text-gray-600">Complete design freedom</p>
+              </div>
+              <div className="p-6 bg-gray-50 rounded-xl">
+                <Settings className="h-8 w-8 text-orange-600 mb-3" />
+                <h3 className="font-bold text-gray-900 mb-2">Advanced Controls</h3>
+                <p className="text-sm text-gray-600">Professional styling options</p>
+              </div>
+            </div>
           </div>
-          <div>Advanced Website Builder</div>
         </div>
       </div>
     );
